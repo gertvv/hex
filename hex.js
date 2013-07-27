@@ -67,6 +67,9 @@ function draw_hex(paper, x, y, size) {
 	str += 'z';
 	var path = paper.path(str);
 	path.attr({'fill': '#09A'});
+	path.node.onclick = function() {
+		path.animate({'fill': '#A90'}, 1000);
+	}
 	return path;
 }
 
