@@ -1,7 +1,15 @@
 <html>
 <head>
-	<script type="text/javascript" src="raphael.js"></script>
-	<script type="text/javascript" src="hex.js"></script>
+	<script type="text/javascript" src="lib/raphael-2.1.0/raphael.js"></script>
+	<script type="text/javascript" src="src/hex.js"></script>
+
+	<script>
+	window.onload = function() {
+		var paper = new Raphael(document.getElementById('canvas_container'), 500, 500);
+		var grid = new StretchedHexagonalHexGrid(3, 2);
+		draw_grid(paper, grid, 20);
+	}
+	</script>
 </head>
 <body>
 	<div id="canvas_container"></div>
