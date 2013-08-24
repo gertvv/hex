@@ -11,7 +11,9 @@ define(['src/HexGrid'], function(HexGrid) {
 		for (var q = -radius; q <= radius; ++q) {
 			rows[q + radius] = { 'min_r': min_r(q), 'cells': [] };
 			for (var r = min_r(q); r <= max_r(q); ++r) {
-				rows[q + radius].cells[r - min_r(q)] = {}; //[r, -r - q, q];
+				rows[q + radius].cells[r - min_r(q)] = {
+					xyz: [r, -r - q, q]
+				};
 			}
 		}
 
