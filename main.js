@@ -1,63 +1,16 @@
 define([
 	'src/StretchedHexagonalHexGrid',
 	'src/Draw',
-	'src/GameBoard'
-], function(StretchedHexagonalHexGrid, Draw, GameBoard) {
+	'src/GameBoard',
+        'src/Tower',
+        'src/RangedMinion',
+        'src/MeleeMinion'
+], function(StretchedHexagonalHexGrid, Draw, GameBoard, Tower, Ranged, Melee) {
 	var paper = new Raphael(document.getElementById('canvas_container'), 1200, 500);
 	var grid = new StretchedHexagonalHexGrid(4, 8, true);
 	var draw = new Draw(paper, grid, 25);
 	var board = new GameBoard(grid, draw);
 
-	function Tower(player) {
-		this.type = 'tower';
-		this.player = player;
-		this.attack = function(board) {
-			return null;
-		}
-		this.move = function(board) {
-			return null;
-		}
-	}
-
-	function Melee(player) {
-		this.type = 'melee';
-		this.player = player;
-		this.attack = function(board) {
-			return null;
-		}
-		this.move = function(board) {
-			var cell = board.find(this);
-			var move = [-1 * player, player, 0];
-			var xyz = [cell.xyz[0] + move[0],
-				cell.xyz[1] + move[1],
-				cell.xyz[2] + move[2]];
-
-			if (board.grid.cellAt({'xyz':xyz}).object) {
-				return null;
-			}
-			return move;
-		}
-	}
-
-	function Ranged(player) {
-		this.type = 'ranged';
-		this.player = player;
-		this.attack = function(board) {
-			return null;
-		}
-		this.move = function(board) {
-			var cell = board.find(this);
-			var move = [-1 * player, player, 0];
-			var xyz = [cell.xyz[0] + move[0],
-				cell.xyz[1] + move[1],
-				cell.xyz[2] + move[2]];
-
-			if (board.grid.cellAt({'xyz':xyz}).object) {
-				return null;
-			}
-			return move;
-		}
-	}
 
 	var tower  = [[8, -8, 0]];
 	var ranged = [[7, -7, 0], [7, -8, 1], [8, -7, -1]];
