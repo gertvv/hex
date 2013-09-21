@@ -1,15 +1,17 @@
 define([], function() {
 	function GameBoard(grid, draw) {
+		this.entityId = 0;
 		this.grid = grid;
 		this.draw = draw;
-		this.objects = [];
+		this.entities = [];
 		draw.drawGrid();
 
 		this.addEntity = function(xyz, entity) {
 			var cell = this.grid.cellAt({'xyz': xyz});
 			cell.object = entity;
+			entity.id = ++this.entityId;
 			entity.img = draw.addEntity(cell);
-			this.objects.push(entity);
+			this.entities.push(entity);
 		}
 
 		this.moveEntity = function(from, to) {
@@ -34,7 +36,7 @@ define([], function() {
 
 		this.update = function() {
 			var board = this;
-			this.objects.forEach(function(object) {
+			this.entities.forEach(function(object) {
 				var action = object.act(grid);
 				if (action.move) {
 					var from = board.find(object).xyz;

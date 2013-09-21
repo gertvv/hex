@@ -33,17 +33,36 @@ define([], function() {
 		}
 
 		this.addEntity = function(cell) {
-			//path.node.onclick = function() {
-			//	path.animate({'fill': '#A90'}, 1000);
-			//}
-			var cart = grid.cartesian(cell);
-			var x = offset_x + cart.x * size;
-			var y = offset_y + cart.y * size;
 			var url = 'images/' + {
 				'tower': 'tower',
 				'melee': 'sword',
 				'ranged': 'bow'}[cell.object.type] + '.png';
-			return paper.image(url, x - 25, y, 50, 50);
+			var image = paper.image(url, 0, 0, 50, 50);
+			image.transform('t-25,0');
+
+			var rect = paper.rect(0, 0, 14, 15, 3);
+			rect.transform('t-7,-7');
+
+			var text = paper.text(0, 0, cell.object.id);
+
+			if (cell.object.player == 1) {
+				rect.attr({'fill': '#ff0000'});
+				text.attr({'stroke': '#ffffff'});
+			} else {
+				rect.attr({'fill': '#0000ff'});
+				text.attr({'stroke': '#ffffff'});
+			}
+
+			var set = paper.set();
+			set.push(image);
+			set.push(text);
+			set.push(rect);
+
+			var cart = grid.cartesian(cell);
+			var x = offset_x + cart.x * size;
+			var y = offset_y + cart.y * size;
+			set.animate({'x': x, 'y': y}, 0);
+			return set;
 		}
 
 		this.moveEntity = function(to) {
@@ -52,7 +71,7 @@ define([], function() {
 			var x = offset_x + cart.x * size;
 			var y = offset_y + cart.y * size;
 			
-			img.animate({'x': x - 25, 'y': y}, 1000);
+			img.animate({'x': x, 'y': y}, 1000);
 		}
 	}
 

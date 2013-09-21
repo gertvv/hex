@@ -4,7 +4,7 @@ define([
 	'src/GameBoard'
 ], function(StretchedHexagonalHexGrid, Draw, GameBoard) {
 	var paper = new Raphael(document.getElementById('canvas_container'), 1200, 500);
-	var grid = new StretchedHexagonalHexGrid(4, 8);
+	var grid = new StretchedHexagonalHexGrid(4, 8, true);
 	var draw = new Draw(paper, grid, 25);
 	var board = new GameBoard(grid, draw);
 
@@ -44,17 +44,26 @@ define([
 		return rval;
 	}
 
-	for (var player = -1; player <= 1; player += 2) {
-		tower.forEach(function(coords) {
-			board.addEntity(mult(coords, player), new Tower(player));
-		});
-		ranged.forEach(function(coords) {
-			board.addEntity(mult(coords, player), new Ranged(player));
-		});
-		melee.forEach(function(coords) {
-			board.addEntity(mult(coords, player), new Melee(player));
-		});
+	function asym(coords, player) {
+		if (player == -1) return coords;
+		else return [coords[0] + 1, coords[1] - 1, coords[2]];
 	}
+
+	tower.forEach(function(coords) {
+		for (var player = -1; player <= 1; player += 2) {
+			board.addEntity(asym(mult(coords, player), player), new Tower(player));
+		}
+	});
+	ranged.forEach(function(coords) {
+		for (var player = -1; player <= 1; player += 2) {
+			board.addEntity(asym(mult(coords, player), player), new Ranged(player));
+		}
+	});
+	melee.forEach(function(coords) {
+		for (var player = -1; player <= 1; player += 2) {
+			board.addEntity(asym(mult(coords, player), player), new Melee(player));
+		}
+	});
 
 	document.getElementById('next_turn').onclick = function() {
 		board.update();
