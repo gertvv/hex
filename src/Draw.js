@@ -23,14 +23,14 @@ define([], function() {
 			function cell_onclick(coords) {
 				return function() {
 					console.log(grid.cellAt(coords));
-				}
+				};
 			}
 			for (var cell in grid) {
 				var cart = grid.cartesian(cell);
 				var path = draw_hex(offset_x + cart.x * size, offset_y + cart.y * size);
 				path.node.onclick = cell_onclick({'xyz' : cell.xyz});
 			}
-		}
+		};
 
 		this.addEntity = function(cell) {
 			var url = 'images/' + {
@@ -45,7 +45,7 @@ define([], function() {
 
 			var text = paper.text(0, 0, cell.object.id);
 
-			if (cell.object.player == 1) {
+			if (cell.object.player === 1) {
 				rect.attr({'fill': '#ff0000'});
 				text.attr({'stroke': '#ffffff'});
 			} else {
@@ -63,7 +63,7 @@ define([], function() {
 			var y = offset_y + cart.y * size;
 			set.animate({'x': x, 'y': y}, 0);
 			return set;
-		}
+		};
 
 		this.moveEntity = function(to) {
 			var img = to.object.img;
@@ -72,7 +72,7 @@ define([], function() {
 			var y = offset_y + cart.y * size;
 			
 			img.animate({'x': x, 'y': y}, 1000);
-		}
+		};
 	}
 
 	return Draw;

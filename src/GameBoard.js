@@ -12,7 +12,7 @@ define([], function() {
 			entity.id = ++this.entityId;
 			this.entities.push(entity);
 			entity.img = draw.addEntity(cell);
-		}
+		};
 
 		this.moveEntity = function(from, to) {
 			var fromCell = grid.cellAt({'xyz': from});
@@ -23,16 +23,16 @@ define([], function() {
 			toCell.object = fromCell.object;
 			fromCell.object = null;
 			draw.moveEntity(toCell);
-		}
+		};
 
 		this.find = function(object) {
 			for (var cell in grid) {
-				if (cell.object == object) {
+				if (cell.object === object) {
 					return cell;
 				}
 			}
 			return null;
-		}
+		};
 
 		this.update = function() {
 			var board = this;
@@ -57,7 +57,7 @@ define([], function() {
 					board.moveEntity(from, to);
 				}
 			});
-		}
+		};
 	}
 
 	return GameBoard;

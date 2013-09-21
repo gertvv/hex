@@ -25,7 +25,7 @@ define([
 	}
 
 	function asym(coords, player) {
-		if (player == -1) return coords;
+		if (player === -1) return coords;
 		else return [coords[0] + 1, coords[1] - 1, coords[2]];
 	}
 

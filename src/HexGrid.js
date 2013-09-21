@@ -64,7 +64,7 @@ define([], function() {
 				var countc = 0;
 				var countr = 0;
 				this.next = function() {
-					if (rows.length == 0) {
+					if (rows.length === 0) {
 						throw StopIteration;
 					} else if (countc < rows[countr].cells.length) {
 						return rows[countr].cells[countc++];
@@ -74,10 +74,10 @@ define([], function() {
 					} else {
 						throw StopIteration;
 					}
-				}
+				};
 			}
 			return new CellIterator(this);
-		}
+		};
 		this.__iterator__ = function() { return this.cells(); };
 	};
 });

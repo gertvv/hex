@@ -4,7 +4,7 @@ define([], function() {
 		this.type = type;
 		this.attack = function(board) {
 			return null;
-		}
+		};
 		this.move = function(board) {
 			var cell = board.find(this);
 			var move = [-1 * player, player, 0];
@@ -16,6 +16,6 @@ define([], function() {
 				return null;
 			}
 			return move;
-		}
-	}
+		};
+	};
 });
