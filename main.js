@@ -11,7 +11,7 @@ define([
 	function Tower(player) {
 		this.type = 'tower';
 		this.player = player;
-		this.act = function(grid) {
+		this.act = function(board) {
 			return {};
 		}
 	}
@@ -19,16 +19,34 @@ define([
 	function Melee(player) {
 		this.type = 'melee';
 		this.player = player;
-		this.act = function(grid) {
-			return { 'move' : [-1 * player, player, 0] };
+		this.act = function(board) {
+			var cell = board.find(this);
+			var move = [-1 * player, player, 0];
+			var xyz = [cell.xyz[0] + move[0],
+				cell.xyz[1] + move[1],
+				cell.xyz[2] + move[2]];
+
+			if (board.grid.cellAt({'xyz':xyz}).object) {
+				return {};
+			}
+			return { 'move' : move };
 		}
 	}
 
 	function Ranged(player) {
 		this.type = 'ranged';
 		this.player = player;
-		this.act = function(grid) {
-			return { 'move' : [-1 * player, player, 0] };
+		this.act = function(board) {
+			var cell = board.find(this);
+			var move = [-1 * player, player, 0];
+			var xyz = [cell.xyz[0] + move[0],
+				cell.xyz[1] + move[1],
+				cell.xyz[2] + move[2]];
+
+			if (board.grid.cellAt({'xyz':xyz}).object) {
+				return {};
+			}
+			return { 'move' : move };
 		}
 	}
 
@@ -54,14 +72,14 @@ define([
 			board.addEntity(asym(mult(coords, player), player), new Tower(player));
 		}
 	});
-	ranged.forEach(function(coords) {
-		for (var player = -1; player <= 1; player += 2) {
-			board.addEntity(asym(mult(coords, player), player), new Ranged(player));
-		}
-	});
 	melee.forEach(function(coords) {
 		for (var player = -1; player <= 1; player += 2) {
 			board.addEntity(asym(mult(coords, player), player), new Melee(player));
+		}
+	});
+	ranged.forEach(function(coords) {
+		for (var player = -1; player <= 1; player += 2) {
+			board.addEntity(asym(mult(coords, player), player), new Ranged(player));
 		}
 	});
 

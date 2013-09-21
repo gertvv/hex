@@ -10,8 +10,8 @@ define([], function() {
 			var cell = this.grid.cellAt({'xyz': xyz});
 			cell.object = entity;
 			entity.id = ++this.entityId;
-			entity.img = draw.addEntity(cell);
 			this.entities.push(entity);
+			entity.img = draw.addEntity(cell);
 		}
 
 		this.moveEntity = function(from, to) {
@@ -37,7 +37,7 @@ define([], function() {
 		this.update = function() {
 			var board = this;
 			this.entities.forEach(function(object) {
-				var action = object.act(grid);
+				var action = object.act(board);
 				if (action.move) {
 					var from = board.find(object).xyz;
 					var to = [];
