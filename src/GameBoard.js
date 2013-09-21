@@ -36,13 +36,23 @@ define([], function() {
 
 		this.update = function() {
 			var board = this;
-			this.entities.forEach(function(object) {
-				var action = object.act(board);
-				if (action.move) {
-					var from = board.find(object).xyz;
+			var pacifists = [];
+			// Attack loop
+			this.entities.forEach(function(entity) {
+				var action = entity.attack();
+				if (action) {
+				} else {
+					pacifists.push(entity);
+				}
+			});
+			// Move loop
+			pacifists.forEach(function(entity) {
+				var action = entity.move(board);
+				if (action) {
+					var from = board.find(entity).xyz;
 					var to = [];
 					for (var i = 0; i < 3; ++i) {
-						to[i] = from[i] + action.move[i];
+						to[i] = from[i] + action[i];
 					}
 					board.moveEntity(from, to);
 				}

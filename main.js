@@ -11,15 +11,21 @@ define([
 	function Tower(player) {
 		this.type = 'tower';
 		this.player = player;
-		this.act = function(board) {
-			return {};
+		this.attack = function(board) {
+			return null;
+		}
+		this.move = function(board) {
+			return null;
 		}
 	}
 
 	function Melee(player) {
 		this.type = 'melee';
 		this.player = player;
-		this.act = function(board) {
+		this.attack = function(board) {
+			return null;
+		}
+		this.move = function(board) {
 			var cell = board.find(this);
 			var move = [-1 * player, player, 0];
 			var xyz = [cell.xyz[0] + move[0],
@@ -27,16 +33,19 @@ define([
 				cell.xyz[2] + move[2]];
 
 			if (board.grid.cellAt({'xyz':xyz}).object) {
-				return {};
+				return null;
 			}
-			return { 'move' : move };
+			return move;
 		}
 	}
 
 	function Ranged(player) {
 		this.type = 'ranged';
 		this.player = player;
-		this.act = function(board) {
+		this.attack = function(board) {
+			return null;
+		}
+		this.move = function(board) {
 			var cell = board.find(this);
 			var move = [-1 * player, player, 0];
 			var xyz = [cell.xyz[0] + move[0],
@@ -44,9 +53,9 @@ define([
 				cell.xyz[2] + move[2]];
 
 			if (board.grid.cellAt({'xyz':xyz}).object) {
-				return {};
+				return null;
 			}
-			return { 'move' : move };
+			return move;
 		}
 	}
 
