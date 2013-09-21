@@ -1,9 +1,8 @@
 define([
-	'lib/raphael',
 	'src/StretchedHexagonalHexGrid',
 	'src/Draw',
 	'src/GameBoard'
-], function(Raphael, StretchedHexagonalHexGrid, Draw, GameBoard) {
+], function(StretchedHexagonalHexGrid, Draw, GameBoard) {
 	var paper = new Raphael(document.getElementById('canvas_container'), 1200, 500);
 	var grid = new StretchedHexagonalHexGrid(4, 8);
 	var draw = new Draw(paper, grid, 25);
