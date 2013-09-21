@@ -53,5 +53,31 @@ define(['jasmine', 'src/HexGrid'], function(jasmine, HexGrid) {
 				expect(it.next).toThrow(StopIteration);
 			});
 		});
+                
+                describe('neighbours()', function() {
+                    var grid = new HexGrid(0, [
+                        { min_r:  0, cells: [11, 12, 13, 14, 15] },
+                        { min_r:  0, cells:   [21, 22, 23, 24, 25] },
+                        { min_r: -1, cells: [31, 32, 33, 34, 35] },
+                        { min_r: -1, cells:   [41, 42, 43, 44, 45] },
+                        { min_r: -2, cells: [51, 52, 53, 54, 55] }
+                    ]);
+                    it('size=0 should return the cell itself', function() {
+                        expect(grid.neighbours({qr: [0, 0]}, 0)).toEqual([11]);
+                        expect(grid.neighbours({qr: [4, -1]}, 0)).toEqual([52]);
+                    });
+                    it('size=1 should return the cells at distance <= 1', function() {
+                        expect(Array.sort(grid.neighbours({qr: [2, 1]}, 1))).toEqual(
+                            [22, 23, 32, 33, 34, 42, 43]);
+                        expect(Array.sort(grid.neighbours({qr: [1, 0]}, 1))).toEqual(
+                            [11, 12, 21, 22, 31, 32]);
+                        expect(Array.sort(grid.neighbours({qr: [0, 0]}, 1))).toEqual(
+                            [11, 12, 21]);
+                    });
+                    it('size=2 should return the cells at distance <= 2', function() {
+                        expect(Array.sort(grid.neighbours({qr: [4, 2]}, 2))).toEqual(
+                            [34, 35, 43, 44, 45, 53, 54, 55]);
+                    });
+                });
 	});
 });

@@ -53,8 +53,27 @@ define([], function() {
 		this.cellAt = function(coords) {
 			var qr = coords_qr(coords);
 			var row = rows[qr.q - min_q];
-			return rows[qr.q - min_q].cells[qr.r - row.min_r];
+			return rows[qr.q - min_q] ? rows[qr.q - min_q].cells[qr.r - row.min_r] : undefined;
 		};
+                this.neighbours = function(coords, range) {
+                    var qr = coords_qr(coords);
+                    var cells = [];
+                    for(var dq = -range; dq <= range; ++dq) {
+                        // dq + dr + ds = 0
+                        // ds = -dq - dr
+                        // -range <= ds <= range
+                        // -range <= -dq - dr <= range
+                        // -range + dq <= -dr <= range + dq
+                        //  range - dq >= dr >= -range - dq
+                        for(var dr = Math.max(-range, -range - dq);
+                                dr <= Math.min(range, range - dq); ++dr) {
+                            if (this.cellAt({qr: [qr.q + dq, qr.r + dr]})) {
+                                cells.push(this.cellAt({qr: [qr.q + dq, qr.r + dr]}));
+                            }
+                        }
+                    }
+                    return cells;
+                };
 		this.cartesian = function(coords) {
 			var qr = coords_qr(coords);
 			return {'x': Math.sqrt(3) * (qr.r + qr.q / 2), 'y': 3/2 * qr.q};

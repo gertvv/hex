@@ -29,7 +29,7 @@ require(['jasmine-html'], function (jasmine) {
 
 	var specs = [];
 
-	specs.push('spec/HexGrid');
+	specs.push('spec/HexGridTest');
 
 	require(specs, function() {
 		jasmineEnv.execute();
