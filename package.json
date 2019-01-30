@@ -1,0 +1,24 @@
+{
+  "name": "hex",
+  "version": "0.0.0",
+  "description": "Hex grid game thing",
+  "repository": "https://github.com/gertvv/hex/",
+  "author": "Gert van Valkenhoef <gert@gertvv.nl>",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html",
+    "watch": "parcel watch index.html",
+    "build": "parcel build index.html"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.13",
+    "@types/raphael": "^2.1.30",
+    "jest": "^24.0.0",
+    "parcel-bundler": "^1.11.0",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.2.4"
+  },
+  "dependencies": {
+    "raphael": "^2.2.7"
+  }
+}
