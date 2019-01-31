@@ -1,16 +1,20 @@
 import GameBoard from './GameBoard';
+import BoardEntity from './BoardEntity';
 import XYZ from './XYZ';
+import RaphaelSet from 'raphael';
 
-export default class Minion {
-  private player: number;
-  private type: string;
+export default class Minion implements BoardEntity {
+  readonly player: number;
+  readonly type: string;
+  public id: number;
+  public img: RaphaelSet;
 
   constructor(player: number, type: string) {
     this.player = player;
     this.type = type;
   }
   
-  attack(board: GameBoard): any {
+  attack(board: GameBoard): XYZ {
     return null;
   };
 

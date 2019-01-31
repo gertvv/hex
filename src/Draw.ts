@@ -1,5 +1,6 @@
 import images from '../images/*.png';
 import RaphaelPaper from 'raphael';
+import RaphaelSet from 'raphael';
 import HexGrid from './HexGrid';
 import { Coords, Cartesian } from './HexGrid';
 import Cell from './Cell';
@@ -49,7 +50,7 @@ export default class Draw {
     }
   };
 
-  addEntity(cell: Cell) {
+  addEntity(cell: Cell): RaphaelSet {
     var url = images[cell.object.type];
     var image = this.paper.image(url, 0, 0, 50, 50);
     image.transform('t-25,0');
@@ -57,7 +58,7 @@ export default class Draw {
     var rect = this.paper.rect(0, 0, 14, 15, 3);
     rect.transform('t-7,-7');
 
-    var text = this.paper.text(0, 0, cell.object.id);
+    var text = this.paper.text(0, 0, String(cell.object.id));
 
     if (cell.object.player === 1) {
       rect.attr({'fill': '#ff0000'});

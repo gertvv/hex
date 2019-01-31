@@ -1,13 +1,16 @@
 import XYZ from './XYZ';
+import HexGrid from './HexGrid';
+import BoardEntity from './BoardEntity';
+import Draw from './Draw';
 import Cell from './Cell';
 
 export default class GameBoard {
-  private entityId: any;
-  public grid: any;
-  private draw: any;
-  private entities: any;
+  readonly grid: HexGrid;
+  private draw: Draw;
+  private entityId: number;
+  private entities: Array<BoardEntity>;
 
-  constructor(grid: any, draw: any) {
+  constructor(grid: HexGrid, draw: Draw) {
     this.entityId = 0;
     this.grid = grid;
     this.draw = draw;
@@ -15,8 +18,8 @@ export default class GameBoard {
     draw.drawGrid();
   }
 
-  addEntity(xyz: XYZ, entity: any) {
-    var cell = this.grid.cellAt({'xyz': xyz});
+  addEntity(xyz: XYZ, entity: BoardEntity) {
+    const cell = this.grid.cellAt({'xyz': xyz});
     cell.object = entity;
     entity.id = ++this.entityId;
     this.entities.push(entity);
@@ -34,7 +37,7 @@ export default class GameBoard {
     this.draw.moveEntity(toCell);
   };
 
-  find(object: any): Cell {
+  find(object: BoardEntity): Cell {
     for (var cell of this.grid) {
       if (cell.object === object) {
         return cell as Cell;
@@ -45,9 +48,9 @@ export default class GameBoard {
 
   update() {
     var board = this;
-    var pacifists: any[] = [];
+    var pacifists: Array<BoardEntity> = [];
     // Attack loop
-    this.entities.forEach(function(entity: any) {
+    this.entities.forEach(function(entity: BoardEntity) {
       var action = entity.attack();
       if (action) {
       } else {
